@@ -1,0 +1,15 @@
+<h1>Employees</h1>
+
+<a href="{% url 'employee_create' %}">Add Employee</a>
+
+<ul>
+  {% for emp in employees %}
+    <li>
+      {{ emp.first_name }} {{ emp.last_name }} |
+      {{ emp.department }} |
+      ₹{{ emp.salary }}
+    </li>
+  {% empty %}
+    <li>No employees found.</li>
+  {% endfor %}
+</ul>
