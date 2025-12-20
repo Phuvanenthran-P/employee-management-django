@@ -2,12 +2,6 @@
 
 <form method="post">
   {% csrf_token %}
-
-  <input name="first_name" placeholder="First Name" required><br>
-  <input name="last_name" placeholder="Last Name" required><br>
-  <input name="email" type="email" placeholder="Email" required><br>
-  <input name="department" placeholder="Department" required><br>
-  <input name="salary" type="number" step="0.01" placeholder="Salary" required><br>
-
+  {{ form.as_p }}
   <button type="submit">Save</button>
 </form>
