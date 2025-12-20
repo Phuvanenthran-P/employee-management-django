@@ -9,6 +9,9 @@
       {{ emp.department }} |
       ₹{{ emp.salary }}
     </li>
+    <a href="{% url 'employee_update' emp.id %}">Edit</a>
+    <a href="{% url 'employee_delete' emp.id %}">Delete</a>
+
   {% empty %}
     <li>No employees found.</li>
   {% endfor %}
