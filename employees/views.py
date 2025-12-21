@@ -3,6 +3,8 @@ from .models import Employee
 from .forms import EmployeeForm
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required, permission_required
+from django.http import HttpResponseForbidden
+
 
 
 def employee_list(request):
@@ -12,6 +14,8 @@ def employee_list(request):
 @login_required
 @permission_required('employees.add_employee', raise_exception=True)
 def employee_create(request):
+    if not request.user.is_staff:
+        return HttpResponseForbidden("Admins only")
     if request.method == "POST":
         form = EmployeeForm(request.POST)
         if form.is_valid():
@@ -25,6 +29,8 @@ def employee_create(request):
 @login_required
 @permission_required('employees.change_employee', raise_exception=True)
 def employee_update(request, pk):
+    if not request.user.is_staff:
+        return HttpResponseForbidden("Admins only")
     employee = get_object_or_404(Employee, pk=pk)
 
     if request.method == "POST":
@@ -43,6 +49,8 @@ def employee_update(request, pk):
 @login_required
 @permission_required('employees.delete_employee', raise_exception=True)
 def employee_delete(request, pk):
+    if not request.user.is_staff:
+        return HttpResponseForbidden("Admins only")
     employee = get_object_or_404(Employee, pk=pk)
 
     if request.method == "POST":
