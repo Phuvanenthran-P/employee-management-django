@@ -1,6 +1,8 @@
 <h1>Employees</h1>
 
-<a href="{% url 'employee_create' %}">Add Employee</a>
+{% if user.is_staff %}
+  <a href="{% url 'employee_create' %}">Add</a>
+{% endif %}
 
 <ul>
   {% for emp in employees %}
@@ -9,8 +11,12 @@
       {{ emp.department }} |
       ₹{{ emp.salary }}
     </li>
+  {% if user.is_staff %}
     <a href="{% url 'employee_update' emp.id %}">Edit</a>
+  {% endif %}
+  {% if user.is_staff %}
     <a href="{% url 'employee_delete' emp.id %}">Delete</a>
+  {% endif %}
 
   {% empty %}
     <li>No employees found.</li>
